@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 //import from other files
 import Color from "../utils/Color";
+import { getConversions } from "../utils/LocalStorage";
 
 // styled elements
 const HistoryContainer = styled.div`
@@ -12,7 +13,6 @@ const HistoryContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
 const HistoryTitleContainer = styled.div`
   height: 14px;
   width: 734.16px;
@@ -28,7 +28,6 @@ const HistoryTitleText = styled.p`
   opacity: 0.5;
   margin: 0;
 `;
-
 const HistoryDetailContainer = styled.div`
   height: 59px;
   width: 1160px;
@@ -53,6 +52,7 @@ const HistoryDetailText = styled.p`
 `;
 
 function History() {
+  let savedConversions = getConversions();
   return (
     <HistoryContainer>
       <HistoryTitleContainer>
@@ -60,39 +60,25 @@ function History() {
         <HistoryTitleText>From</HistoryTitleText>
         <HistoryTitleText>To</HistoryTitleText>
       </HistoryTitleContainer>
-      <HistoryDetailContainer>
-        <HistoryDetailTextContainer>
-          <HistoryDetailText>June 25, 2020</HistoryDetailText>
-        </HistoryDetailTextContainer>
-        <HistoryDetailTextContainer>
-          <HistoryDetailText>1.00 EUR</HistoryDetailText>
-        </HistoryDetailTextContainer>
-        <HistoryDetailTextContainer>
-          <HistoryDetailText>1.12392 USD</HistoryDetailText>
-        </HistoryDetailTextContainer>
-      </HistoryDetailContainer>
-      <HistoryDetailContainer>
-        <HistoryDetailTextContainer>
-          <HistoryDetailText>June 25, 2020</HistoryDetailText>
-        </HistoryDetailTextContainer>
-        <HistoryDetailTextContainer>
-          <HistoryDetailText>1.00 EUR</HistoryDetailText>
-        </HistoryDetailTextContainer>
-        <HistoryDetailTextContainer>
-          <HistoryDetailText>1.12392 USD</HistoryDetailText>
-        </HistoryDetailTextContainer>
-      </HistoryDetailContainer>
-      <HistoryDetailContainer>
-        <HistoryDetailTextContainer>
-          <HistoryDetailText>June 25, 2020</HistoryDetailText>
-        </HistoryDetailTextContainer>
-        <HistoryDetailTextContainer>
-          <HistoryDetailText>1.00 EUR</HistoryDetailText>
-        </HistoryDetailTextContainer>
-        <HistoryDetailTextContainer>
-          <HistoryDetailText>1.12392 USD</HistoryDetailText>
-        </HistoryDetailTextContainer>
-      </HistoryDetailContainer>
+      {savedConversions.map((e, i) => {
+        return (
+          <HistoryDetailContainer key={i}>
+            <HistoryDetailTextContainer>
+              <HistoryDetailText>{e.date}</HistoryDetailText>
+            </HistoryDetailTextContainer>
+            <HistoryDetailTextContainer>
+              <HistoryDetailText>
+                {e.fromValue} {e.fromCurrency}
+              </HistoryDetailText>
+            </HistoryDetailTextContainer>
+            <HistoryDetailTextContainer>
+              <HistoryDetailText>
+                {e.toValue} {e.toCurrency}
+              </HistoryDetailText>
+            </HistoryDetailTextContainer>
+          </HistoryDetailContainer>
+        );
+      })}
     </HistoryContainer>
   );
 }

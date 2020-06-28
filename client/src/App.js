@@ -11,7 +11,7 @@ import HistoryPage from "./pages/HistoryPage";
 const AppContainer = styled.div`
   width: 1280px;
   margin: 0 auto;
-  box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 44px 0 rgba(0, 0, 0, 0.28);
   font-family: Roboto, Arial, sans-serif;
 `;
 

@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Converter from "../components/Converter";
 import Color from "../utils/Color";
+import { dataToConversion } from "../utils/Coversion";
+import { addConversion } from "../utils/LocalStorage";
 
 // styled elements
 const HomePageContainer = styled.div`
@@ -46,7 +48,6 @@ function HomePage() {
   //select currencies
   const [fromCurrency, setFromCurrency] = useState("EUR");
   const [toCurrency, setToCurrency] = useState("USD");
-
   //result
   const [result, setResult] = useState();
   const [showResult, setShowResult] = useState(false);
@@ -75,7 +76,6 @@ function HomePage() {
     setToCurrency(event.target.value);
     setShowResult(false);
   };
-
   const switchCurrencies = () => {
     setToCurrency(fromCurrency);
     setFromCurrency(toCurrency);
@@ -84,33 +84,43 @@ function HomePage() {
 
   // fetch api
   const API_KEY = process.env.REACT_APP_CURRENCYLAYER_API_KEY;
-  const getQuotes = async () => {
-    //const response =
-    await fetch(
+  const getConversion = async () => {
+    return await fetch(
       `http://api.currencylayer.com/live?access_key=${API_KEY}&currencies=${fromCurrency},${toCurrency}&format=1`
     )
       .then((response) => response.json())
       .then((data) => {
-        const usdToCurrency = `USD${toCurrency}`;
-        const currencyToUSD = `USD${fromCurrency}`;
-        const usdToCurrencyRate = data.quotes[usdToCurrency];
-        const currencyToUSDRate = data.quotes[currencyToUSD];
-        updateWithNewRate(usdToCurrencyRate, currencyToUSDRate);
+        return dataToConversion(data, input, fromCurrency, toCurrency);
       });
   };
 
-  const updateWithNewRate = (usdToCurrencyRate, currencyToUSDRate) => {
-    let answer = (
-      `${input}` *
-      (`${usdToCurrencyRate}` / `${currencyToUSDRate}`)
-    ).toFixed(5);
-    setResult(answer);
+  const updateWithConversion = (conversion) => {
+    setResult(conversion.toValue);
     setShowResult(true);
   };
 
-  const getResult = () => {
+  const getResult = async () => {
     if (error == null) {
-      getQuotes();
+      const conversion = await getConversion();
+      updateWithConversion(conversion);
+      addConversion(conversion);
+      //local storage
+      // const savedConversionsAsString = localStorage.getItem("savedConversions");
+      // let savedConversions = JSON.parse(
+      //   savedConversionsAsString ? savedConversionsAsString : "[]"
+      // );
+
+      // savedConversions.push(conversion);
+      // localStorage.setItem(
+      //   "savedConversions",
+      //   JSON.stringify(savedConversions)
+      // );
+
+      // console.log("newly created", savedConversions);
+      // console.log(
+      //   "fetched from storage\n",
+      //   localStorage.getItem("savedConversions")
+      // );
     } else {
       setError("Please provide a valid number");
     }

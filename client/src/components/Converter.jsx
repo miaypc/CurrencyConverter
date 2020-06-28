@@ -147,8 +147,8 @@ function Converter({
         <InputTitle>From</InputTitle>
         <ArrowSign src={Path} alt="Arrow sign for select" />
         <FromSelect onChange={handleSelectFromCurrency} value={fromCurrency}>
-          {currencies.map((currency) => {
-            return <FromOption>{currency}</FromOption>;
+          {currencies.map((currency, i) => {
+            return <FromOption key={i}>{currency}</FromOption>;
           })}
         </FromSelect>
       </FromContainer>
@@ -164,8 +164,8 @@ function Converter({
         <ArrowSign src={Path} alt="Arrow sign for select" />
         {/* <ArrowSign /> */}
         <ToSelect onChange={handleSelectToCurrency} value={toCurrency}>
-          {currencies.map((currency) => {
-            return <ToOption>{currency}</ToOption>;
+          {currencies.map((currency, i) => {
+            return <ToOption key={i}>{currency}</ToOption>;
           })}
         </ToSelect>
       </ToContainer>
