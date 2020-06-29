@@ -1,13 +1,5 @@
-let dateOptions = { year: "numeric", month: "long", day: "numeric" };
-
 export class Conversion {
-  constructor(
-    fromValue,
-    fromCurrency,
-    toValue,
-    toCurrency,
-    date = new Date().toLocaleDateString("en-US", dateOptions)
-  ) {
+  constructor(fromValue, fromCurrency, toValue, toCurrency, date = new Date()) {
     this.fromValue = fromValue;
     this.fromCurrency = fromCurrency;
     this.toValue = toValue;
@@ -15,6 +7,11 @@ export class Conversion {
     this.date = date;
   }
 }
+
+export const localStorageToConversion = (object) => {
+  object.date = new Date(object.date);
+  return object;
+};
 
 export const dataToConversion = (
   data,

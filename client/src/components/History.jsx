@@ -17,7 +17,7 @@ const HistoryTitleContainer = styled.div`
   height: 14px;
   width: 734.16px;
   margin-left: 80px;
-  margin-bottom: 8px;
+  margin-bottom: 28px;
   display: flex;
   justify-content: space-between;
 `;
@@ -31,7 +31,7 @@ const HistoryTitleText = styled.p`
 const HistoryDetailContainer = styled.div`
   height: 59px;
   width: 1160px;
-  margin-top: 20px;
+  margin-bottom: 20px;
   background-color: ${Color.White};
   color: ${Color.Dark};
   border-radius: 15px;
@@ -53,6 +53,8 @@ const HistoryDetailText = styled.p`
 
 function History() {
   let savedConversions = getConversions();
+  const dateOptions = { year: "numeric", month: "long", day: "numeric" };
+
   return (
     <HistoryContainer>
       <HistoryTitleContainer>
@@ -64,7 +66,9 @@ function History() {
         return (
           <HistoryDetailContainer key={i}>
             <HistoryDetailTextContainer>
-              <HistoryDetailText>{e.date}</HistoryDetailText>
+              <HistoryDetailText>
+                {e.date.toLocaleDateString("en-US", dateOptions)}
+              </HistoryDetailText>
             </HistoryDetailTextContainer>
             <HistoryDetailTextContainer>
               <HistoryDetailText>

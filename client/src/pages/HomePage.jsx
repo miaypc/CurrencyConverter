@@ -102,6 +102,8 @@ function HomePage() {
   const getResult = async () => {
     if (error == null) {
       const conversion = await getConversion();
+      console.log(conversion);
+      console.log(typeof conversion.date);
       updateWithConversion(conversion);
       addConversion(conversion);
     } else {
