@@ -14,7 +14,8 @@ const HeaderContainer = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 99.8px;
+  //width: 99.8px; changed to match to the design
+  width: 99px;
   height: 35px;
   margin: 40px 1120.2px 0 60px;
 `;

@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 //import from other files
 import Color from "../utils/Color";
-import Path from "../image/Path.png";
 import Switcher from "../image/Switcher.png";
+import Select from "./Select";
 
 // styled elements
 const ConverterContainer = styled.div`
@@ -25,6 +25,7 @@ const AmountContainer = styled.div`
   width: 200px;
   color: ${Color.Dark};
   margin-left: 40px;
+  margin-right: 9px;
   margin-top: 28px;
 `;
 const InputTitle = styled.p`
@@ -49,61 +50,18 @@ const AmountInput = styled.input`
   color: ${Color.Dark};
   padding: 0 0 0 16px;
 `;
-// for from and to
-const FromContainer = styled(AmountContainer)`
-  margin-left: 24px;
-`;
-const ToContainer = styled(AmountContainer)`
-  margin-left: 16px;
-`;
 
-const FromSelect = styled.select`
-  font-family: inherit;
-  height: 40px;
-  width: 200px;
-  border-radius: 8px;
-  border: none;
-  background-color: ${Color.Cream};
-  padding: 0 0 0 16px;
-  color: ${Color.Dark};
-  font-size: 16px;
-  line-height: 19px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-`;
-const ArrowSign = styled.img`
-  height: 6px;
-  width: 12px;
-  position: absolute;
-  margin-left: 172px;
-  margin-top: 18px;
-`;
-
-// const ArrowSign = styled.path`
-//   box-sizing: border-box;
-//   height: 6px;
-//   width: 12px;
-//   border: 2px solid ${Color.Dark};
-//   margin-left: 172px;
-//   position: absolute;
-//   //margin-top: 18px;
-// `;
-const FromOption = styled.option`
-  margin-left: 19px;
-  font-size: 16px;
-  line-height: 19px;
-`;
-
-const ToSelect = styled(FromSelect)``;
-const ToOption = styled(FromOption)``;
-
+// for switcher
 const SwicherSign = styled.img`
-  width: 12px;
-  height: 12px;
-  margin-top: 67px;
-  margin-left: 16px;
   cursor: pointer;
+  // width: 12px; changed to match to the design
+  // height: 12px;
+  // margin-top: 67px;
+  // margin-left: 16px;
+  width: 14px;
+  height: 14px;
+  margin-top: 66px;
+  margin-left: 15px;
 `;
 // for button
 
@@ -122,7 +80,6 @@ const ConvertButton = styled.button`
   margin-top: 52px;
   margin-left: 40px;
 `;
-const currencies = ["EUR", "USD", "CHF"];
 
 function Converter({
   input,
@@ -142,33 +99,21 @@ function Converter({
         <AmountInput value={input} onChange={handleInputChange} />
         {error && <ErrorMessage> {error}</ErrorMessage>}
       </AmountContainer>
-
-      <FromContainer>
-        <InputTitle>From</InputTitle>
-        <ArrowSign src={Path} alt="Arrow sign for select" />
-        <FromSelect onChange={handleSelectFromCurrency} value={fromCurrency}>
-          {currencies.map((currency, i) => {
-            return <FromOption key={i}>{currency}</FromOption>;
-          })}
-        </FromSelect>
-      </FromContainer>
-
+      <Select
+        title="From"
+        value={fromCurrency}
+        onChangeFunction={handleSelectFromCurrency}
+      />
       <SwicherSign
         src={Switcher}
         alt="Switcher sign"
         onClick={() => switchCurrencies()}
       />
-
-      <ToContainer>
-        <InputTitle>To</InputTitle>
-        <ArrowSign src={Path} alt="Arrow sign for select" />
-        {/* <ArrowSign /> */}
-        <ToSelect onChange={handleSelectToCurrency} value={toCurrency}>
-          {currencies.map((currency, i) => {
-            return <ToOption key={i}>{currency}</ToOption>;
-          })}
-        </ToSelect>
-      </ToContainer>
+      <Select
+        title="To"
+        value={toCurrency}
+        onChangeFunction={handleSelectToCurrency}
+      />
       <ConvertButton onClick={getResult}>Convert</ConvertButton>
     </ConverterContainer>
   );

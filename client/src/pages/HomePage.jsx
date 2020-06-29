@@ -104,23 +104,6 @@ function HomePage() {
       const conversion = await getConversion();
       updateWithConversion(conversion);
       addConversion(conversion);
-      //local storage
-      // const savedConversionsAsString = localStorage.getItem("savedConversions");
-      // let savedConversions = JSON.parse(
-      //   savedConversionsAsString ? savedConversionsAsString : "[]"
-      // );
-
-      // savedConversions.push(conversion);
-      // localStorage.setItem(
-      //   "savedConversions",
-      //   JSON.stringify(savedConversions)
-      // );
-
-      // console.log("newly created", savedConversions);
-      // console.log(
-      //   "fetched from storage\n",
-      //   localStorage.getItem("savedConversions")
-      // );
     } else {
       setError("Please provide a valid number");
     }

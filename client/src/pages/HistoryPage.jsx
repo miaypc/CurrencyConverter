@@ -13,9 +13,11 @@ const HistoryPageContainer = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 `;
 const LogoHistoryPage = styled.img`
-  width: 99.8px;
+  //width: 99.8px; changed to match to the design
+  width: 99px;
   height: 35px;
   margin: 40px 1120.2px 0 60px;
 `;
