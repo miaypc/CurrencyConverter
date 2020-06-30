@@ -7,7 +7,7 @@ import Header from "../components/Header";
 import Converter from "../components/Converter";
 import Color from "../utils/Color";
 import { dataToConversion } from "../utils/Coversion";
-import { addConversion } from "../utils/LocalStorage";
+import { addConversionToLocalStorage } from "../utils/LocalStorage";
 
 // styled elements
 const HomePageContainer = styled.div`
@@ -102,10 +102,8 @@ function HomePage() {
   const getResult = async () => {
     if (error == null) {
       const conversion = await getConversion();
-      console.log(conversion);
-      console.log(typeof conversion.date);
       updateWithConversion(conversion);
-      addConversion(conversion);
+      addConversionToLocalStorage(conversion);
     } else {
       setError("Please provide a valid number");
     }

@@ -1,23 +1,17 @@
 import { localStorageToConversion } from "./Coversion";
 
-export const addConversion = (conversion) => {
-  let savedConversions = getConversions();
+export const addConversionToLocalStorage = (conversion) => {
+  let savedConversions = getConversionsFromLocalStorage();
   savedConversions.push(conversion);
   localStorage.setItem("savedConversions", JSON.stringify(savedConversions));
-  let conversionHistory = JSON.parse(localStorage.getItem("savedConversions"));
 
   //console.log("newly created", savedConversions);
   //console.log(conversionHistory);
 };
 
-export const getConversions = () => {
+export const getConversionsFromLocalStorage = () => {
   const savedConversionsAsString = localStorage.getItem("savedConversions");
-  return (
-    JSON.parse(savedConversionsAsString ? savedConversionsAsString : "[]")
-      // .map((c) => {
-      //   console.log("string", c);
-      //   return c;
-      // })
-      .map(localStorageToConversion)
-  );
+  return JSON.parse(
+    savedConversionsAsString ? savedConversionsAsString : "[]"
+  ).map(localStorageToConversion);
 };

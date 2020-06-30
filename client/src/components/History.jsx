@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 //import from other files
 import Color from "../utils/Color";
-import { getConversions } from "../utils/LocalStorage";
+import { getConversionsFromLocalStorage } from "../utils/LocalStorage";
 
 // styled elements
 const HistoryContainer = styled.div`
@@ -52,37 +52,39 @@ const HistoryDetailText = styled.p`
 `;
 
 function History() {
-  let savedConversions = getConversions();
+  let savedConversions = getConversionsFromLocalStorage();
   const dateOptions = { year: "numeric", month: "long", day: "numeric" };
 
   return (
     <HistoryContainer>
       <HistoryTitleContainer>
         <HistoryTitleText>Date</HistoryTitleText>
-        <HistoryTitleText>From</HistoryTitleText>
-        <HistoryTitleText>To</HistoryTitleText>
+        <HistoryTitleText style={{ marginLeft: "3px" }}>From</HistoryTitleText>
+        <HistoryTitleText style={{ marginRight: "1px" }}>To</HistoryTitleText>
       </HistoryTitleContainer>
-      {savedConversions.map((e, i) => {
-        return (
-          <HistoryDetailContainer key={i}>
-            <HistoryDetailTextContainer>
-              <HistoryDetailText>
-                {e.date.toLocaleDateString("en-US", dateOptions)}
-              </HistoryDetailText>
-            </HistoryDetailTextContainer>
-            <HistoryDetailTextContainer>
-              <HistoryDetailText>
-                {e.fromValue} {e.fromCurrency}
-              </HistoryDetailText>
-            </HistoryDetailTextContainer>
-            <HistoryDetailTextContainer>
-              <HistoryDetailText>
-                {e.toValue} {e.toCurrency}
-              </HistoryDetailText>
-            </HistoryDetailTextContainer>
-          </HistoryDetailContainer>
-        );
-      })}
+      {savedConversions
+        .sort((a, b) => b.date - a.date)
+        .map((e, i) => {
+          return (
+            <HistoryDetailContainer key={i}>
+              <HistoryDetailTextContainer>
+                <HistoryDetailText>
+                  {e.date.toLocaleDateString("en-US", dateOptions)}
+                </HistoryDetailText>
+              </HistoryDetailTextContainer>
+              <HistoryDetailTextContainer>
+                <HistoryDetailText>
+                  {e.fromValue} {e.fromCurrency}
+                </HistoryDetailText>
+              </HistoryDetailTextContainer>
+              <HistoryDetailTextContainer>
+                <HistoryDetailText>
+                  {e.toValue} {e.toCurrency}
+                </HistoryDetailText>
+              </HistoryDetailTextContainer>
+            </HistoryDetailContainer>
+          );
+        })}
     </HistoryContainer>
   );
 }
