@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 //import from other files
-import PickarLogo from "../image/Logo.png";
 import Color from "../utils/Color";
 import History from "../components/History";
 // styled elements
@@ -15,12 +14,13 @@ const HistoryPageContainer = styled.div`
   flex-direction: column;
   overflow: auto;
 `;
-const LogoHistoryPage = styled.img`
-  //width: 99.8px; changed to match to the design
-  width: 99px;
-  height: 35px;
-  margin: 40px 1120.2px 0 60px;
+
+const Title = styled.h1`
+  color: ${Color.White};
+  margin-top: 40px;
+  text-align:center;
 `;
+
 
 const GoBackText = styled.p`
   color: ${Color.White};
@@ -31,7 +31,7 @@ const GoBackText = styled.p`
 function HistoryPage() {
   return (
     <HistoryPageContainer>
-      <LogoHistoryPage src={PickarLogo} alt="Pickar Logo" />
+      <Title>Conversion History</Title>
       <Link to="/" style={{ textDecoration: "none" }}>
         <GoBackText> &#60; Go back </GoBackText>
       </Link>
