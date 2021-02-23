@@ -13,6 +13,9 @@ export const localStorageToConversion = (object) => {
   return object;
 };
 
+//   const usdToCurrency = `USD${toCurrency}`;
+//   const currencyToUSD = `USD${fromCurrency}`;
+
 export const dataToConversion = (
   data,
   input,
@@ -20,10 +23,10 @@ export const dataToConversion = (
   toCurrency,
   date
 ) => {
-  const usdToCurrency = `USD${toCurrency}`;
-  const currencyToUSD = `USD${fromCurrency}`;
-  const usdToCurrencyRate = data.quotes[usdToCurrency];
-  const currencyToUSDRate = data.quotes[currencyToUSD];
+  const usdToCurrency = `${toCurrency}`;
+  const currencyToUSD = `${fromCurrency}`;
+  const usdToCurrencyRate = data.rates[usdToCurrency];
+  const currencyToUSDRate = data.rates[currencyToUSD];
   const convertedValue = (
     `${input}` *
     (`${usdToCurrencyRate}` / `${currencyToUSDRate}`)

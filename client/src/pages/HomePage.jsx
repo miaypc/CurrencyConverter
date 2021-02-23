@@ -83,10 +83,21 @@ function HomePage() {
   };
 
   // fetch api
-  const API_KEY = process.env.REACT_APP_CURRENCYLAYER_API_KEY;
+  const API_KEY = process.env.REACT_APP_OPENEXCHANGERATES_API_KEY; 
+
+  // const getConversion = async () => {
+  //   return await fetch(
+  //     `http://api.currencylayer.com/live?access_key=${API_KEY}&currencies=${fromCurrency},${toCurrency}&format=1`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       return dataToConversion(data, input, fromCurrency, toCurrency);
+  //     });
+  // };
+
   const getConversion = async () => {
     return await fetch(
-      `http://api.currencylayer.com/live?access_key=${API_KEY}&currencies=${fromCurrency},${toCurrency}&format=1`
+      `https://openexchangerates.org/api/latest.json?app_id=${API_KEY}`
     )
       .then((response) => response.json())
       .then((data) => {
