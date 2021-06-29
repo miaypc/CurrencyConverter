@@ -9,7 +9,7 @@ const date = new Date(2020, 6, 29, 22, 0, 0);
 // test function dataToConversion()
 test("should have date if one isn't passed into dataToConversion", () => {
   const conversion = dataToConversion(
-    { quotes: { USDUSD: 1, USDEUR: 0.891421 } },
+    { rates: { USD: 1, EUR: 0.891421 } },
     "2",
     "USD",
     "EUR"
@@ -20,7 +20,7 @@ test("should have date if one isn't passed into dataToConversion", () => {
 test("should return correct coversion from USD to EUR", () => {
   expect(
     dataToConversion(
-      { quotes: { USDUSD: 1, USDEUR: 0.891421 } },
+      { rates: { USD: 1, EUR: 0.891421 } },
       "2",
       "USD",
       "EUR",
@@ -35,10 +35,10 @@ test("should return correct coversion from USD to EUR", () => {
   });
 });
 
-test("should return correct coversion from EUR to USD", () => {
+ test("should return correct coversion from EUR to USD", () => {
   expect(
     dataToConversion(
-      { quotes: { USDEUR: 0.889702, USDUSD: 1 } },
+      { rates: { EUR: 0.889702, USD: 1 } },
       "1",
       "EUR",
       "USD",
@@ -56,7 +56,7 @@ test("should return correct coversion from EUR to USD", () => {
 test("should return correct coversion from EUR to CHF", () => {
   expect(
     dataToConversion(
-      { quotes: { USDEUR: 0.889702, USDCHF: 0.951275 } },
+      { rates: { EUR: 0.889702, CHF: 0.951275 } },
       "10",
       "EUR",
       "CHF",
@@ -74,7 +74,7 @@ test("should return correct coversion from EUR to CHF", () => {
 test("should return correct coversion from CHF to EUR", () => {
   expect(
     dataToConversion(
-      { quotes: { USDCHF: 0.951275, USDEUR: 0.889702 } },
+      { rates: { CHF: 0.951275, EUR: 0.889702 } },
       "2002",
       "CHF",
       "EUR",
